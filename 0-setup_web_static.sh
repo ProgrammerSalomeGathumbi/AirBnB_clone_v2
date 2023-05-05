@@ -11,7 +11,7 @@ echo "<html>
     <body>
       Holberton School
     </body>
-</html>" | tee /data/web_static/releases/test/index.html > /dev/null  <head>
+</html>" | tee /data/web_static/releases/test/index.html > /dev/null
 sudo rm -f /data/web_static/current
 ln -sf /data/web_static/releases/test /data/web_static/current
 chown -R ubuntu:ubuntu /data/
