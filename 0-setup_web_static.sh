@@ -5,14 +5,13 @@ if ! dpkg -s nginx >/dev/null 2>&1; then
   sudo apt -y install nginx
 fi
 sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
-echo "<!DOCTYPE HTML>
-      <html>
-        <head>
-        </head>
-                <body>
-                        Holberton School
-                </body>
-      </html>" | tee /data/web_static/releases/test/index.html > /dev/null
+echo "<html>
+  <head>
+  </head>
+    <body>
+      Holberton School
+    </body>
+</html>" | tee /data/web_static/releases/test/index.html > /dev/null  <head>
 sudo rm -f /data/web_static/current
 ln -sf /data/web_static/releases/test /data/web_static/current
 chown -R ubuntu:ubuntu /data/
