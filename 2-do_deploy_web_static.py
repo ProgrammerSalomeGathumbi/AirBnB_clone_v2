@@ -20,13 +20,17 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
         arch_file = archive_path.split('/')[-1]
         folder = file_name.split('.')[0]
-        run("sudo mkdir -p {}".format(folder))
-        run("sudo tar -xzf {} -C {}/".format(arch_file, folder))
-        run("sudo rm {}".format(arch_file))
-        run("sudo mv {}/web_static/* {}".format(folder, folder))
-        run("sudo rm -rf {}/web_static".format(folder))
+        run("sudo mkdir -p /data/web_static/releases/{}/".format(folder))
+        run("sudo tar -xzf {} -C /data/web_static/releases/{}/"
+            .format(arch_file, folder))
+        run("sudo rm /tmp/{}".format(arch_file))
+        run("sudo mv /data/web_static/releases/{}/web_static/*  \
+            /data/web_static/releases/{}/".format(folder, folder))
+        run("sudo rm -rf /data/web_static/releases/{}/web_static/"
+            .format(folder))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s {} /data/web_static/current".format(folder))
+        run("sudo ln -s /data/web_static/releases/{} /data/web_static/current"
+            .format(folder))
         return (True)
     except Exception as e:
         return (False)
