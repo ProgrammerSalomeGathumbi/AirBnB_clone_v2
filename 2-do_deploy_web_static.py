@@ -17,10 +17,9 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return (False)
     try:
-        arch_file = archive_path[9:]
-        folder = "/data/web_static/releases/{}" + arch_file[:-4]
-        arch_file = "/tmp/" + arch_file
         put(archive_path, "/tmp/")
+        arch_file = archive_path.split('/')[-1]
+        folder = file_name.split('.')[0]
         run("sudo mkdir -p {}".format(folder))
         run("sudo tar -xzf {} -C {}/".format(arch_file, folder))
         run("sudo rm {}".format(arch_file))
