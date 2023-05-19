@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                     getattr(new_instance, key)
                 except AttributeError:
                     continue
-                if value[0] is "\"":
+                if value[0] == "\"":
                     value = value.strip("\"")
                     value = value.replace("_", " ")
                     value = value.replace("\\\"", "\"")
