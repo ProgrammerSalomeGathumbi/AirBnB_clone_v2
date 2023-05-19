@@ -115,36 +115,40 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+        _args = args.split(" ", 1)
+
+        if not _args[0]:
             print("** class name missing **")
             return
-        new_class, params = args.split(' ', 1)
-        if new_class not in HBNBCommand.classes:
+        elif _args[0] not HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        # Empty dict to store key,value pair
-        x = {}
+        new_instance = HBNBCommand.classes[_args[0]]()
 
-        for param in params[2:]:
-            try:
-                key, value = param.split('=')
-                # Handle string values
-                if value.startswith('"'):
-                    value = value.replace('_', ' ')\
-                            .replace('\\', '"')
-                # Handle float values
-                elif '.' in value:
+        if len(_args) > 1:
+            _kwargs = dict((x, y)
+                           for x, y in (elt.split('=')
+                           for elt in _args[1].split(' ')))
+
+            for key, value in _kwatgs.items():
+                try:
+                    getattr(new_instance, key)
+                except AttributeError:
+                    continue
+                if value[0] is "\"":
+                    value = value.strip("\"")
+                    value = value.replace("_", " ")
+                    value = value.replace("\\\"", "\"")
+                elif "." in value:
                     value = float(value)
-                # Handle integer values
                 else:
-                    value = int(value)
-                # Add key and value to the dict
-                x[key] = value
-            except ValueError:
-                pass
-
-        new_instance = HBNBCommand.classes[new_class](**x)
-        print(new_instance)
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        continue
+                setattr(new_instance, key, value)
+        new_instance.save()
+        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
