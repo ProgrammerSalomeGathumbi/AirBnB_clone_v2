@@ -13,8 +13,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
-all_classes = {"State", "Amenity", "City", "Review", "User", "Place"}
-
 
 class DBStorage:
     __engine = None
@@ -35,7 +33,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """query on the current database session"""
+        """Query objects from the current database session"""
         if cls is None:
             objs = (
                 self.__session.query(State).all()
