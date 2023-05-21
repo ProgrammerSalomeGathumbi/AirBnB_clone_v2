@@ -10,7 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
 all_classes = {"State", "Amenity", "City", "Review", "User", "Place"}
@@ -27,11 +27,11 @@ class DBStorage:
                 getenv('HBNB_MYSQL_PWD'), getenv('HBNB_MYSQL_HOST'),
                 getenv('HBNB_MYSQL_DB'))
 
-    self.__engine = create_engine(db_uri, pool_pre_ping=True)
-    self.reload()
+        self.__engine = create_engine(db_uri, pool_pre_ping=True)
+        self.reload()
 
-    if getenv('HBNB_ENV') == test:
-        Base.metadat.drop_all(self.engine)
+        if getenv('HBNB_ENV') == test:
+            Base.metadat.drop_all(self.engine)
 
     def all(self, cls=None):
         """query on the current database session"""
