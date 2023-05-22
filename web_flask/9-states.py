@@ -15,7 +15,7 @@ def hello_states():
     """ 
     returns HTML page with list of states
     """
-    states = storage.all("State")
+    states = storage.all(State).values()
     return render_template("9-states.html", states=states)
 
 
@@ -24,7 +24,8 @@ def hello_states_id(id):
     """
     returns id if it exists
     """
-    for states in storage.all(State).value():
+    states = storage.all(State).values()	
+    for state in states:
         if state.id == id:
             return render_template("9-states.html", states=states)
     return render_template("9-states.html")
