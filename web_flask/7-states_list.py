@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """
-A script that starts a Flask web application
+A script that starts a Flask web application and
+display a HTML page with the list of all State
+objects present in DBStorage
 """
 from flask import Flask
 from flask import render_template
@@ -21,7 +23,7 @@ def hello_states_list():
 
 @app.teardown_appcontext
 def teardown(exc):
-    """ 
+    """
     remove the current SQLAlchemy Session
     """
     storage.close()
