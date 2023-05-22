@@ -12,16 +12,20 @@ app = Flask(__name__)
 
 @app.route("/hbnb_filters", strict_slashes=False)
 def hello_hbnb_filters():
-    """ Returns HTML with hbnb_filters"""
-    states = storage.all("State").values()
-    amenities = storage.all("Amenity").value()
+    """
+    Returns HTML with hbnb_filters
+    """
+    states = storage.all(State).values()
+    amenities = storage.all(Amenity).value()
     return render_template("10-hbnb_filters.html", states=states,
                            amenities=amenities)
 
 
 @app.teardown_appcontext
 def teardown(exc):
-    """remove the current SQLAlchemy Session"""
+    """
+    remove the current SQLAlchemy Session
+    """
     storage.close()
 
 

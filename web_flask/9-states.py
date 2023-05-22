@@ -12,15 +12,19 @@ app = Flask(__name__)
 
 @app.route("/states", strict_slashes=False)
 def hello_states():
-    """ returns HTML page with list of states"""
+    """ 
+    returns HTML page with list of states
+    """
     states = storage.all("State")
     return render_template("9-states.html", states=states)
 
 
 @app.route("/states/<id>", strict_slashes=False)
 def hello_states_id(id):
-    """ returns id if it exists"""
-    for states in storage.all("State").value():
+    """
+    returns id if it exists
+    """
+    for states in storage.all(State).value():
         if state.id == id:
             return render_template("9-states.html", states=states)
     return render_template("9-states.html")
@@ -28,7 +32,9 @@ def hello_states_id(id):
 
 @app.teardown_appcontext
 def teardown(exc):
-    """remove the current SQLAlchemy Session"""
+    """
+    remove the current SQLAlchemy Session
+    """
     storage.close()
 
 

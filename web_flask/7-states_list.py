@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-a script that starts a Flask web application
+A script that starts a Flask web application
 """
 from flask import Flask
 from flask import render_template
@@ -12,14 +12,18 @@ app = Flask(__name__)
 
 @app.route("/states_list", strict_slashes=False)
 def hello_states_list():
-    """ Returns HTML with list of states"""
-    states = storage.all("State").values()
+    """
+    Returns HTML with list of states
+    """
+    states = storage.all(State).values()
     return render_template("7-states_list.html", states=states)
 
 
 @app.teardown_appcontext
 def teardown(exc):
-    """remove the current SQLAlchemy Session"""
+    """ 
+    remove the current SQLAlchemy Session
+    """
     storage.close()
 
 
